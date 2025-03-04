@@ -26,3 +26,9 @@ module "databases" {
   db_security_group           = module.security_groups.db_security_group
   back_end_private_subnet_ids = module.vpc.back_end_private_subnet_ids
 }
+
+module "ec2_instances" {
+  source                                = "./ec2_instances"
+  ssh_bastion_amazon_ec2_security_group = module.security_groups.ssh_bastion_amazon_ec2_security_group_id
+  public_subnet_id                      = module.vpc.public_subnet_id
+}
