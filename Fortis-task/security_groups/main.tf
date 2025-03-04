@@ -78,3 +78,38 @@ resource "aws_security_group" "web_app_amazon_ec2_security_group" {
     Usage = "web_app"
   }
 }
+
+resource "aws_security_group" "nat_security_group" {
+  name        = "nat_security_group"
+  description = "Allow egress traffic from web app, and db."
+  vpc_id      = var.vpc_id
+
+  ingress {
+    description = "Allow inbound traffic from web app"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.2.0/24"]
+  }
+
+  ingress {
+    description = "Allow inbound traffic from db"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.3.0/24"]
+  }
+
+  egress {
+    description = "Allow outbound traffic"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "nat_security_group"
+    Usage = "web_app"
+  }
+}

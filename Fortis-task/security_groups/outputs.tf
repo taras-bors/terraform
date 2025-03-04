@@ -9,3 +9,7 @@ output "elastic_load_balancer_security_group" {
 output "web_app_amazon_ec2_security_group" {
   value = aws_security_group.web_app_amazon_ec2_security_group.id
 }
+
+output "nat_security_group" {
+  value = aws_security_group.nat_security_group.id
+}
