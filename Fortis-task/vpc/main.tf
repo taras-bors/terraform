@@ -12,11 +12,9 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_subnet" "dmz_public" {
-  count                   = length(var.public_subnet_cidrs)
   vpc_id                  = aws_vpc.main.id
-  cidr_block              = var.public_subnet_cidrs[count.index]
+  cidr_block              = var.public_subnet_cidr
   map_public_ip_on_launch = true
-  availability_zone       = element(var.availability_zones, count.index)
 }
 
 resource "aws_subnet" "front_end_private" {
