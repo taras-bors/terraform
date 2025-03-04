@@ -1,3 +1,4 @@
+# For Bastion
 resource "aws_security_group" "ssh_bastion_amazon_ec2_security_group" {
   name        = "ssh_bastion_amazon_ec2_security_group"
   description = "Allow SSH traffic"
@@ -25,6 +26,7 @@ resource "aws_security_group" "ssh_bastion_amazon_ec2_security_group" {
   }
 }
 
+# For ELB
 resource "aws_security_group" "elastic_load_balancer_security_group" {
   name        = "elastic_load_balancer_security_group"
   description = "Allow ELB traffic"
@@ -52,6 +54,7 @@ resource "aws_security_group" "elastic_load_balancer_security_group" {
   }
 }
 
+# For Web App
 resource "aws_security_group" "web_app_amazon_ec2_security_group" {
   name        = "web_app_amazon_ec2_security_group"
   description = "Allow traffic from ELB to web app, and tcp outbound"
@@ -79,6 +82,7 @@ resource "aws_security_group" "web_app_amazon_ec2_security_group" {
   }
 }
 
+# For NAT gateway
 resource "aws_security_group" "nat_security_group" {
   name        = "nat_security_group"
   description = "Allow egress traffic from web app, and db."
