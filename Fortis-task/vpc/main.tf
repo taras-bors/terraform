@@ -24,7 +24,9 @@ resource "aws_subnet" "front_end_private" {
 }
 
 resource "aws_subnet" "back_end_private" {
+  count          = length(var.back_end_private_subnet_cidrs)
   vpc_id                  = aws_vpc.main.id
-  cidr_block              = var.back_end_private_subnet_cidr
+  cidr_block              = var.back_end_private_subnet_cidrs[count.index]
+  availability_zone       = element(var.availability_zones, count.index)
   map_public_ip_on_launch = true
 }

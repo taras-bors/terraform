@@ -54,34 +54,6 @@ resource "aws_security_group" "elastic_load_balancer_security_group" {
   }
 }
 
-# For Web App
-resource "aws_security_group" "web_app_amazon_ec2_security_group" {
-  name        = "web_app_amazon_ec2_security_group"
-  description = "Allow traffic from ELB to web app, and tcp outbound"
-  vpc_id      = var.vpc_id
-
-  ingress {
-    description = "Allow inbound traffic from ELB to web app"
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["10.0.1.0/24"]
-  }
-
-  egress {
-    description = "Allow outbound traffic"
-    from_port   = 0
-    to_port     = 0
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "web_app_amazon_ec2_security_group"
-    Usage = "web_app"
-  }
-}
-
 # For NAT gateway
 resource "aws_security_group" "nat_security_group" {
   name        = "nat_security_group"
@@ -115,5 +87,56 @@ resource "aws_security_group" "nat_security_group" {
   tags = {
     Name = "nat_security_group"
     Usage = "nat_ gateway"
+  }
+}
+
+# For Web App
+resource "aws_security_group" "web_app_amazon_ec2_security_group" {
+  name        = "web_app_amazon_ec2_security_group"
+  description = "Allow traffic from ELB to web app, and tcp outbound"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    description = "Allow inbound traffic from ELB to web app"
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.1.0/24"]
+  }
+
+  egress {
+    description = "Allow outbound traffic"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "web_app_amazon_ec2_security_group"
+    Usage = "web_app"
+  }
+}
+
+# For DB
+resource "aws_security_group" "db_security_group" {
+  name        = "db_security_group"
+  description = "Allow traffic from web app, to db and tcp outbound"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    description = "Allow inbound traffic from ELB to web app"
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.2.0/24"]
+  }
+
+  egress {
+    description = "Allow outbound traffic"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 }

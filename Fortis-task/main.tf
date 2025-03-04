@@ -12,10 +12,17 @@ module "vpc" {
   cidr_block                    = "10.0.0.0/16"
   public_subnet_cidr            = "10.0.1.0/24"
   front_end_private_subnet_cidr = "10.0.2.0/24"
-  back_end_private_subnet_cidr  = "10.0.3.0/24"
+  back_end_private_subnet_cidrs = ["10.0.3.0/24", "10.0.4.0/24"]
+  availability_zones            = ["ca-central-1a", "ca-central-1b"]
 }
 
 module "security_groups" {
   source = "./security_groups"
   vpc_id = module.vpc.vpc_id
+}
+
+module "databases" {
+  source                      = "./databases"
+  db_security_group           = module.security_groups.db_security_group
+  back_end_private_subnet_ids = module.vpc.back_end_private_subnet_ids
 }
