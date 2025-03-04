@@ -110,6 +110,6 @@ resource "aws_security_group" "nat_security_group" {
 
   tags = {
     Name = "nat_security_group"
-    Usage = "web_app"
+    Usage = "nat_ gateway"
   }
 }
