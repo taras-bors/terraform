@@ -8,7 +8,6 @@ output "public_subnet_ids" {
   value       = aws_subnet.dmz_public[*].id
 }
 
-
 output "front_end_private_subnet_ids" {
   description = "The ID of the front-end private subnet."
   value       = aws_subnet.front_end_private.id

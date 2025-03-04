@@ -8,7 +8,6 @@ variable "public_subnet_cidrs" {
   type        = list(string)
 }
 
-
 variable "front_end_private_subnet_cidr" {
   description = "A CIDR blocks for the front-end private subnet."
   type        = string
