@@ -34,3 +34,32 @@ resource "aws_security_group" "example" {
     Environment = "development"
   }
 }
+
+resource "aws_security_group" "amazon_ec2_security_group" {
+  name        = "amazon_ec2_security_group"
+  description = "Allow SSH traffic"
+  vpc_id      = var.vpc_id
+
+  # Inbound rules
+  ingress {
+    description = "Allow inbound SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # Outbound rules
+  egress {
+    description = "Allow outbound SSH traffic to front-end subnet"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.2.0/24"]
+  }
+
+  tags = {
+    Name = "amazon_ec2_security_group"
+    Ec2 = "bastion"
+  }
+}
