@@ -19,7 +19,6 @@ resource "aws_subnet" "dmz_public" {
   availability_zone       = element(var.availability_zones, count.index)
 }
 
-
 resource "aws_subnet" "front_end_private" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = var.front_end_private_subnet_cidr
