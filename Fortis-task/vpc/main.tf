@@ -12,8 +12,10 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_subnet" "dmz_public" {
+  count          = length(var.public_subnet_cidr)
   vpc_id                  = aws_vpc.main.id
-  cidr_block              = var.public_subnet_cidr
+  cidr_block              = var.public_subnet_cidr[count.index]
+  availability_zone       = element(var.availability_zones, count.index)
   map_public_ip_on_launch = true
 }
 
@@ -45,7 +47,7 @@ resource "aws_eip" "nat_eip" {
 
 resource "aws_nat_gateway" "nat_gw" {
   allocation_id = aws_eip.nat_eip.id
-  subnet_id     = aws_subnet.dmz_public.id
+  subnet_id     = aws_subnet.dmz_public[0].id
 
   tags = {
     Name = "nat-gateway"
@@ -68,7 +70,8 @@ resource "aws_route_table" "dmz_public_rt" {
 }
 
 resource "aws_route_table_association" "public_subnet_assoc" {
-  subnet_id      = aws_subnet.dmz_public.id
+  count          = length(var.public_subnet_cidr)
+  subnet_id      = aws_subnet.dmz_public[count.index].id
   route_table_id = aws_route_table.dmz_public_rt.id
 }
 

@@ -16,7 +16,7 @@ resource "aws_instance" "ssh_bastion" {
   ami           = "ami-0c6f9998440436fb9" # Red Hat 9 AMI
   instance_type = "t3.micro"
   key_name      = aws_key_pair.bastion_key.key_name
-  subnet_id     = var.public_subnet_id
+  subnet_id     = var.public_subnet_id[0]
   security_groups = [
     var.ssh_bastion_amazon_ec2_security_group
   ]

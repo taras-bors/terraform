@@ -10,7 +10,7 @@ variable "web_app_amazon_ec2_security_group" {
 
 variable "public_subnet_id" {
   description = "The ID of the public subnet."
-  type        = string
+  type        = list(string)
 }
 
 variable "front_end_private_subnet_id" {

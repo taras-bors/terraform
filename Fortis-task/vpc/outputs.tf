@@ -5,7 +5,7 @@ output "vpc_id" {
 
 output "public_subnet_id" {
   description = "The ID of the public subnet."
-  value       = aws_subnet.dmz_public.id
+  value       = aws_subnet.dmz_public[*].id
 }
 
 output "front_end_private_subnet_id" {
