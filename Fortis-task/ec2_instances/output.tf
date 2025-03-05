@@ -1,6 +1,6 @@
 output "web_app_server_id" {
   description = "Web App Server Id"
-  value = aws_instance.apache_server.id
+  value = aws_instance.web_app_server.id
 }
 
 output "private_key_pem" {

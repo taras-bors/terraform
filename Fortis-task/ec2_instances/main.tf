@@ -37,7 +37,7 @@ resource "aws_key_pair" "web_app_server_key" {
   public_key = tls_private_key.web_app_server_key.public_key_openssh
 }
 
-resource "aws_instance" "apache_server" {
+resource "aws_instance" "web_app_server" {
   ami           = "ami-05073582a4b03d785"
   instance_type = "t3.micro"
   key_name      = aws_key_pair.web_app_server_key.key_name

@@ -10,7 +10,7 @@ variable "elastic_load_balancer_security_group" {
 
 variable "public_subnet_id" {
   description = "DMZ subnet"
-  type = string
+  type = list(string)
 }
 
 variable "web_app_server_id" {

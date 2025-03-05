@@ -3,7 +3,7 @@ resource "aws_lb" "web_app_lb" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [var.elastic_load_balancer_security_group]
-  subnets            = [var.public_subnet_id]
+  subnets            = var.public_subnet_id
 
   tags = {
     Name = "web_app-alb"
@@ -37,7 +37,7 @@ resource "aws_lb_target_group_attachment" "web_app_tg_attachment" {
   port             = 8080
 }
 
-#The AWS Certificate Manager section is for example only, as the real domain needed.
+#The AWS Certificate Manager section is for example only, as the real domain needed to create an SSL cert.
 #resource "aws_acm_certificate" "example" {
 #  domain_name       = "example.com"
 #  validation_method = "DNS"
@@ -45,9 +45,11 @@ resource "aws_lb_target_group_attachment" "web_app_tg_attachment" {
 
 resource "aws_lb_listener" "http_listener" {
   load_balancer_arn = aws_lb.web_app_lb.arn
-  port              = 443
-  protocol          = "HTTPS"
-# Disabled as a certificate needed
+  port              = 80
+  protocol          = "HTTP"
+# Disabled as the SSL certificate needed
+#  port              = 443
+#  protocol          = "HTTPS"
 #  ssl_policy        = "ELBSecurityPolicy-2016-08" # Choose an appropriate SSL policy
 #  certificate_arn   = aws_acm_certificate.example.arn
 
