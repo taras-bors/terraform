@@ -29,7 +29,7 @@ resource "aws_security_group" "ssh_bastion_amazon_ec2_security_group" {
 # For ELB
 resource "aws_security_group" "elastic_load_balancer_security_group" {
   name        = "elastic_load_balancer_security_group"
-  description = "Allow ELB traffic"
+  description = "Allows ELB traffic"
   vpc_id      = var.vpc_id
 
   ingress {
@@ -42,10 +42,10 @@ resource "aws_security_group" "elastic_load_balancer_security_group" {
 
   egress {
     description = "Allow outbound ELB traffic to front-end subnet"
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["10.0.2.0/24"]
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {

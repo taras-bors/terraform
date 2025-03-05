@@ -31,4 +31,14 @@ module "ec2_instances" {
   source                                = "./ec2_instances"
   ssh_bastion_amazon_ec2_security_group = module.security_groups.ssh_bastion_amazon_ec2_security_group_id
   public_subnet_id                      = module.vpc.public_subnet_id
+  front_end_private_subnet_id           = module.vpc.front_end_private_subnet_id
+  web_app_amazon_ec2_security_group     = module.security_groups.web_app_amazon_ec2_security_group
 }
+
+#module "load_balancers" {
+#  source = "./load_balancers"
+#  vpc_id = module.vpc.vpc_id
+#  public_subnet_id = module.vpc.public_subnet_id
+#  elastic_load_balancer_security_group = module.security_groups.elastic_load_balancer_security_group
+#  web_app_server_id = module.ec2_instances.web_app_server_id
+#}
