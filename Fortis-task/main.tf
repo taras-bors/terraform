@@ -36,9 +36,9 @@ module "ec2_instances" {
 }
 
 module "load_balancers" {
-  source = "./load_balancers"
-  vpc_id = module.vpc.vpc_id
-  public_subnet_id = module.vpc.public_subnet_id
+  source                               = "./load_balancers"
+  vpc_id                               = module.vpc.vpc_id
+  public_subnet_id                     = module.vpc.public_subnet_id
   elastic_load_balancer_security_group = module.security_groups.elastic_load_balancer_security_group
-  web_app_server_id = module.ec2_instances.web_app_server_id
+  web_app_server_id                    = module.ec2_instances.web_app_server_id
 }
