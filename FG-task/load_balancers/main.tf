@@ -37,7 +37,7 @@ resource "aws_lb_target_group_attachment" "web_app_tg_attachment" {
   port             = 8080
 }
 
-#The AWS Certificate Manager section is for example only, as the real domain needed to create an SSL cert.
+#The AWS Certificate Manager section is for example only, as the real domain needed to create an SSL cert. Or we can use self signed certificate.
 #resource "aws_acm_certificate" "example" {
 #  domain_name       = "example.com"
 #  validation_method = "DNS"
